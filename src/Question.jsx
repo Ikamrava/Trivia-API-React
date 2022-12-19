@@ -1,39 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./question.css"
+import Answers from './Answers';
+import "./answers.css"
+import {nanoid} from "react"
 
 
+function Question(props) {
+ const [answers,setAnswers] = useState(props.answers)
 
-const entities = {
+  const entities = {
   '&#039;': "'",
   '&quot;': '"',
   
 };
 
 
-function Question(props) {
-  const style = {
-    backGroundColor : props.isHeld ? `#59E391` : `white`
-  }
-    let nums = new Set();
-        while (nums.size < 4) {
-            nums.add(Math.floor(Math.random() * (4) ));
-        }
-        const randomNumbers = Array.from(nums) ;
-        console.log(randomNumbers)
-
-  let answers = [props.answers.correct,props.answers.incorrect0,props.answers.incorrect1,props.answers.incorrect2]
+function clickHandler(id){
+  setAnswers(oldanswers=> oldanswers.map(answer => {
+    return answer.id === id ? {...answer, isHeld : !answer.isHeld} : answer
+   }))
+}
+       
  
+ const dom = props &&  answers.map(answer=>{
+  
+    return (
+    
+     <Answers  id= {answer.id} key = {nanoid} clickHandler = {()=>clickHandler(answer.id)} value = {answer.value} isHeld = {answer.isHeld}/>
 
+    )
+  })
 
+    
   return (
     <div>
-      <h3>{`${props.question.replace(/&quot;/g, '"').replace(/&#039;/g, "'")}`}</h3>
-      { <div className="answerWrapper">
-        <p>{`${answers[randomNumbers[0]]}`}</p>
-        <p>{`${answers[randomNumbers[1]]}`}</p>
-        <p>{`${answers[randomNumbers[2]]}`}</p>
-        <p>{`${answers[randomNumbers[3]]}`}</p>
-      </div> }
+      <h3>{`${props.value.replace(/&quot;/g, '"').replace(/&#039;/g, "'")}`}</h3>
+      <div className="answerWrapper">
+      {dom}
+    </div>
     </div>
   )
 }
