@@ -14,30 +14,9 @@ function Question(props) {
   
 };
 
-
-function clickHandler(id){
-  setAnswers(oldanswers=> oldanswers.map(answer => {
-    return answer.id === id ? {...answer, isHeld : !answer.isHeld} : answer
-   }))
-}
-       
- 
- const dom = props &&  answers.map(answer=>{
-  
-    return (
-    
-     <Answers  id= {answer.id} key = {nanoid} clickHandler = {()=>clickHandler(answer.id)} value = {answer.value} isHeld = {answer.isHeld}/>
-
-    )
-  })
-
-    
   return (
     <div>
-      <h3>{`${props.value.replace(/&quot;/g, '"').replace(/&#039;/g, "'")}`}</h3>
-      <div className="answerWrapper">
-      {dom}
-    </div>
+      <h3>{props.value}</h3>
     </div>
   )
 }

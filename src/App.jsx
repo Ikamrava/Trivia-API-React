@@ -4,13 +4,12 @@ import Question from './Question'
 import React from 'react'
 import {mixAnswers, decodeHTMLEntities } from './utils.js'
 import { nanoid } from 'nanoid'
+import Answers from './Answers'
+import "./answers.css"
 
 function App() {
-  const [resultsData,setResultsData] = useState()
-  const [question , setQuestion] = useState([])
-  const [isHeld, setIsHeld] = useState(false);
-  const [correctAnswer,setCorrectAnswer] = useState("")
-  const [incorrectAnswers,setIncorrectAnswers] = useState([])
+  const [answers,setAnswers] = useState()
+
   const[newData,setNewData]= useState()
 
   function generatingData (results){
@@ -52,9 +51,9 @@ function App() {
         .then(data=> {
 
           const results = data.results    
-          console.log(results)
           const questionsWithAnswers = results.map(result => generatingData(result))
           setNewData(questionsWithAnswers)
+          
 
         })
       }catch(e){
@@ -65,32 +64,76 @@ function App() {
 
 
 
-function heldHandeler(){
-  
-  // setQuestion(oldData=> oldData.map(question => {
-  //   return question.id === id ? {...dice, isHeld : !dice.isHeld} : dice
-  //  }))
-  
+
+
+function checkIsHeld(allAnswers){
+   return allAnswers.isHeld === false
 }
+
+
+
+function clickHandler(id){
+  setNewData(oldData=> oldData.map(data=> {
+    if(data.allAnswers.every(checkIsHeld)){
+      
+      const newAnswer = data.allAnswers.map(answer => {
+         if(answer.id === id){
+            const test = {...answer, isHeld : !answer.isHeld}
+            return test
+         }
+         return answer
+         
+       })
+       
+       return {...data , allAnswers : newAnswer}
+     }else{
+
+      const newAnswer = data.allAnswers.map(answer => {
+           return {...answer, isHeld : false}
+      })
+      return {...data , allAnswers : newAnswer}
+
+      }
+
+    }))
   
+ }
 
-
-
-
-
-  
+ console.log(newData)
+ 
 const dom = newData && newData.map(item=>{
+  
   return (
     <div>
       <Question
        key = {item.id}
        value= {item.question}
        id = {item.id}
-       answers = {item.allAnswers}
         />
-    </div>)
+        <div className='answerWrapper'>
+        {
+          
+          item.allAnswers.map(answer=>{
+            return( 
+            <Answers  
+            id= {answer.id} 
+            key = {answer.id} 
+            clickHandler = {()=> clickHandler(answer.id)} 
+            value = {answer.value} 
+            isHeld = {answer.isHeld}/>
+            
+          )
+          })
+          
+        }
+        </div>
+
+    </div>
+
+    )
   
   })
+
 
 
 
@@ -101,6 +144,7 @@ const dom = newData && newData.map(item=>{
   return (
     <div>
      {dom}
+     <button>Check Answer</button>
     </div>
   )
 

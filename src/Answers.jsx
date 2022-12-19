@@ -1,4 +1,5 @@
 import React from 'react'
+import "./answers.css"
 
 
 function Answers(props) {
@@ -9,15 +10,16 @@ function Answers(props) {
 
   return (
 
-       
         <div
         onClick = {props.clickHandler}
-        style = { style}
+        style = {style}
+        id = {props.id}
         >
           
           {props.value}
         
         </div>
+        
      
     
   )
