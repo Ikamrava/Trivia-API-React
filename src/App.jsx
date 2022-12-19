@@ -87,16 +87,34 @@ function clickHandler(id){
        
        return {...data , allAnswers : newAnswer}
      }else{
+      
+      console.log("please deslect the previus choise")
 
       const newAnswer = data.allAnswers.map(answer => {
-           return {...answer, isHeld : false}
+        if(answer.id === id){
+          return {...answer, isHeld : false}
+        }
+        return answer
       })
-      return {...data , allAnswers : newAnswer}
+      return {...data, allAnswers : newAnswer}
 
       }
 
     }))
   
+ }
+
+ function checkAnswer(){
+  let score = 0
+  newData.map(data=>{
+    data.allAnswers.map(answer=>{
+      if (answer.isHeld && answer.iscorrect){
+        score += 1
+      }
+
+    })
+  })
+  console.log(score)
  }
 
  console.log(newData)
@@ -144,7 +162,7 @@ const dom = newData && newData.map(item=>{
   return (
     <div>
      {dom}
-     <button>Check Answer</button>
+     <button onClick={checkAnswer}>Check Answer</button>
     </div>
   )
 
