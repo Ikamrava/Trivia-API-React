@@ -1,11 +1,31 @@
 .answerWrapper{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: start;
+    gap: 2.5rem;
     flex-direction: row;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #DBDEF0;
     
 }
 
 .answer{
     border-radius: 10px;
-    padding: 2px  8px
+    padding: 2px  8px;
+    border: 1px solid #293264;
+    
+}
+
+.btn{
+    
+    background-color: #4D5B9E ;
+    color: white;
+}
+
+.footerWrapper{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    gap: 10px;
 }

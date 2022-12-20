@@ -11,7 +11,8 @@ import { BrowserRouter as Router, Routes, Route,Link } from 'react-router-dom'
 
 
 function App() {
-  const [answers,setAnswers] = useState()
+  const [score,setScore] = useState()
+  const [isFinished,setIsFinished] = useState(false)
 
   const[newData,setNewData]= useState()
 
@@ -107,18 +108,9 @@ function clickHandler(id){
   
  }
 
- function checkAnswer(){
-  let score = 0
-  newData.map(data=>{
-    data.allAnswers.map(answer=>{
-      if (answer.isHeld && answer.iscorrect){
-        score += 1
-      }
 
-    })
-  })
-  console.log(score)
- }
+
+
 
  console.log(newData)
 
@@ -190,25 +182,50 @@ const Dom =()=> newData && newData.map(item=>{
       )
     
     })
+    
+    function checkAnswer(){
+      if(!isFinished){
+        let score = 0
+        newData.map(data=>{
+          data.allAnswers.map(answer=>{
+            if (answer.isHeld && answer.iscorrect){
+              score += 1
+            }
+      
+          })
+        })
+         setScore (score)
+         setIsFinished (true)
+      }else{
+        setIsFinished (false)
+        window.location.reload(false);
+      }
+      
+     }
 
-
-
-
+     
 
 
 
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Dom/>}></Route>
-        <Route path='/result' element={<ResultPage/>}></Route>
-      </Routes>
-     <div>
-     <button onClick={checkAnswer}>
-      <Link to="/result">Check Answer</Link>
+        <Route path='/' element={<Dom/>}>
+        
+       
+        </Route>
+       
+        <Route path='/result' element={<ResultPage/>}>
+        
+        </Route>
 
-      </button>
-    </div>
+      </Routes>
+      <div className='footerWrapper'>
+          <div >{score>=0 ? `You scored ${score}/5 correct answers` : ``}</div>
+          <button  className = "btn" onClick={checkAnswer}>
+              <Link to = {isFinished ? "/" : "/result"}>{isFinished ? "Play again":"Check Answer"}</Link>
+          </button>
+      </div>
     </Router>
   )
 

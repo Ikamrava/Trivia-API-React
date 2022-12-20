@@ -13,7 +13,7 @@ function Answers(props) {
 
         <div className='answer'
         onClick = {props.clickHandler}
-        style = {style || style2 || style3}
+        style = {style}
         id = {props.id}
         >
           {props.value}

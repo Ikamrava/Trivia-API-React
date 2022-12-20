@@ -6,8 +6,8 @@ function AnswerTwo(props) {
     const style = {
         backgroundColor :  
                         props.iscorrect ? `#94D7A2` : `white`&&
-                        props.isHeld ? `#F8BCBC` : `white`
-        
+                        props.isHeld ? `#F8BCBC` : `white`,
+        opacity:  !props.iscorrect ? "0.5" : "1"
         }
     
     

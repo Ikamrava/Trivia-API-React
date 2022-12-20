@@ -1,8 +1,14 @@
 #root {
-  max-width: 1280px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  background-image: url("./back.png");
+  background-size: cover;
+  padding-top: 5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
+  
 }
 
 .logo {
