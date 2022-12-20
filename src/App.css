@@ -3,11 +3,12 @@
   margin: 0 auto;
   text-align: center;
   background-image: url("./back.png");
-  background-size: cover;
-  padding-top: 5rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  background-size:cover;
+  padding-top: 2rem;
+  padding-left: 8vw;
+  padding-right: 8vw;
   padding-bottom: 2rem;
+  
   
 }
 

@@ -1,7 +1,7 @@
 .answerWrapper{
     display: flex;
-    justify-content: start;
-    gap: 2.5rem;
+    justify-content: space-around;
+    gap: 2.5vw;
     flex-direction: row;
     padding-bottom: 20px;
     border-bottom: 1px solid #DBDEF0;
