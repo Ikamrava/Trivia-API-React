@@ -94,7 +94,7 @@ function clickHandler(id){
        return {...data , allAnswers : newAnswer}
      }else{
       
-      console.log("please deslect the previus choise")
+      
 
       const newAnswer = data.allAnswers.map(answer => {
         if(answer.id === id){
@@ -181,7 +181,7 @@ const Dom =()=> newData && newData.map(item=>{
     
     function checkAnswer(){
       if(!isFinished){
-        console.log(isFinished)
+        
         let score = 0
         newData.map(data=>{
           data.allAnswers.map(answer=>{
