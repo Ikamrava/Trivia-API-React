@@ -11,6 +11,13 @@
   
   
 }
+.startWrapper{
+  max-width: 800px;
+  padding-top: 2rem;
+  padding-left: 8vw;
+  padding-right: 8vw;
+  padding-bottom: 2rem;
+}
 
 .logo {
   height: 6em;

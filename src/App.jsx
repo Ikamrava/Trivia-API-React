@@ -8,11 +8,13 @@ import Answers from './Answers'
 import AnswerTwo from './AnswerTwo'
 import "./answers.css"
 import { BrowserRouter as Router, Routes, Route,Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 function App() {
   const [score,setScore] = useState()
   const [isFinished,setIsFinished] = useState(false)
+  const [isStarted,setIsStarted] = useState(false)
 
   const[newData,setNewData]= useState()
 
@@ -108,12 +110,6 @@ function clickHandler(id){
   
  }
 
-
-
-
-
- console.log(newData)
-
 const Dom =()=> newData && newData.map(item=>{
   
   return (
@@ -185,6 +181,7 @@ const Dom =()=> newData && newData.map(item=>{
     
     function checkAnswer(){
       if(!isFinished){
+        console.log(isFinished)
         let score = 0
         newData.map(data=>{
           data.allAnswers.map(answer=>{
@@ -196,35 +193,57 @@ const Dom =()=> newData && newData.map(item=>{
         })
          setScore (score)
          setIsFinished (true)
+      
       }else{
         setIsFinished (false)
         window.location.reload(false);
+        setIsStarted(false)
+        
+        
       }
       
      }
 
+
+     function StartPage (){
+      let navigate = useNavigate()
+      if(newData){
+        return (
+        <div className='startWrapper'>
+          <h1>Quizzical</h1>
+          <p><a href = "">Some description if needed</a></p>
+
+        
+        <button className='btn' onClick= {()=>{
+          navigate("/quiz")
+           setIsStarted(true)
+          }}> Start </button>
+       </div>
+
+
+      )
+
+      } 
+ 
+     }
      
 
 
 
   return (
     <Router>
+            
       <Routes>
-        <Route path='/' element={<Dom/>}>
-        
-       
-        </Route>
-       
-        <Route path='/result' element={<ResultPage/>}>
-        
-        </Route>
-
+       <Route path='/' element={<StartPage></StartPage>}></Route>
+       <Route path='/quiz' element={<Dom/>}></Route>
+       <Route path='/result' element={<ResultPage/>}></Route>
       </Routes>
+
       <div className='footerWrapper'>
-          <div >{score>=0 ? `You scored ${score}/5 correct answers` : ``}</div>
-          <button  className = "btn" onClick={checkAnswer}>
+      {isStarted && <div >{score>=0 ? `You scored ${score}/5 correct answers` : ``}</div>}
+          {isStarted && <button  className = "btn" onClick={checkAnswer}>
               <Link to = {isFinished ? "/" : "/result"}>{isFinished ? "Play again":"Check Answer"}</Link>
-          </button>
+          </button>}
       </div>
     </Router>
   )
