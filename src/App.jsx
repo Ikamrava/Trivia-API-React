@@ -5,7 +5,10 @@ import React from 'react'
 import {mixAnswers, decodeHTMLEntities } from './utils.js'
 import { nanoid } from 'nanoid'
 import Answers from './Answers'
+import AnswerTwo from './AnswerTwo'
 import "./answers.css"
+import { BrowserRouter as Router, Routes, Route,Link } from 'react-router-dom'
+
 
 function App() {
   const [answers,setAnswers] = useState()
@@ -118,24 +121,24 @@ function clickHandler(id){
  }
 
  console.log(newData)
- 
-const dom = newData && newData.map(item=>{
+
+const Dom =()=> newData && newData.map(item=>{
   
   return (
-    <div>
+    <div key = {nanoid()}>
       <Question
-       key = {item.id}
+       key = {nanoid()}
        value= {item.question}
        id = {item.id}
         />
-        <div className='answerWrapper'>
+        <div key = {nanoid()} className='answerWrapper'>
         {
           
           item.allAnswers.map(answer=>{
             return( 
             <Answers  
             id= {answer.id} 
-            key = {answer.id} 
+            key = {nanoid()} 
             clickHandler = {()=> clickHandler(answer.id)} 
             value = {answer.value} 
             isHeld = {answer.isHeld}/>
@@ -152,6 +155,41 @@ const dom = newData && newData.map(item=>{
   
   })
 
+  const ResultPage =()=> newData && newData.map(item=>{
+  
+    return (
+      <div key = {nanoid()}>
+        <Question
+         key = {nanoid()}
+         value= {item.question}
+         id = {item.id}
+          />
+          <div key = {nanoid()} className='answerWrapper'>
+          {
+            
+            item.allAnswers.map(answer=>{
+              return( 
+              <AnswerTwo  
+              id= {answer.id} 
+              key = {nanoid()} 
+              clickHandler = {()=> clickHandler(answer.id)} 
+              value = {answer.value} 
+              isHeld = {answer.isHeld}
+              iscorrect= {answer.iscorrect}
+
+              />
+              
+            )
+            })
+            
+          }
+          </div >
+  
+      </div>
+  
+      )
+    
+    })
 
 
 
@@ -160,10 +198,18 @@ const dom = newData && newData.map(item=>{
 
 
   return (
-    <div>
-     {dom}
-     <button onClick={checkAnswer}>Check Answer</button>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Dom/>}></Route>
+        <Route path='/result' element={<ResultPage/>}></Route>
+      </Routes>
+     <div>
+     <button onClick={checkAnswer}>
+      <Link to="/result">Check Answer</Link>
+
+      </button>
     </div>
+    </Router>
   )
 
 
