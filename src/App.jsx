@@ -113,7 +113,7 @@ function clickHandler(id){
 const Dom =()=> newData && newData.map(item=>{
   
   return (
-    <div key = {nanoid()}>
+    <div  className='itemsWrapper' key = {nanoid()}>
       <Question
        key = {nanoid()}
        value= {item.question}
@@ -146,7 +146,7 @@ const Dom =()=> newData && newData.map(item=>{
   const ResultPage =()=> newData && newData.map(item=>{
   
     return (
-      <div key = {nanoid()}>
+      <div  key = {nanoid()}>
         <Question
          key = {nanoid()}
          value= {item.question}
@@ -178,6 +178,8 @@ const Dom =()=> newData && newData.map(item=>{
       )
     
     })
+
+  
     
     function checkAnswer(){
       if(!isFinished){
@@ -241,8 +243,8 @@ const Dom =()=> newData && newData.map(item=>{
 
       <div className='footerWrapper'>
       {isStarted && <div >{score>=0 ? `You scored ${score}/5 correct answers` : ``}</div>}
-          {isStarted && <button  className = "btn" onClick={checkAnswer}>
-              <Link to = {isFinished ? "/" : "/result"}>{isFinished ? "Play again":"Check Answer"}</Link>
+          {isStarted && <button  className = "btn" onClick={checkAnswer} >
+              <Link className = "link"to = {isFinished ? "/" : "/result"}>{isFinished ? "Play again":"Check Answer"}</Link>
           </button>}
       </div>
     </Router>

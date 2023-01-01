@@ -16,9 +16,8 @@
 }
 
 .btn{
-    
     background-color: #4D5B9E ;
-    color: white;
+    color: rgb(252, 249, 249);
 }
 
 .footerWrapper{
@@ -29,6 +28,12 @@
     gap: 10px;
 }
 
-Link{
-    color: black;
+.link{
+    color: #DBDEF0;
+    font-weight: 900;
+}
+
+.itemsWrapper{
+    padding-left: 20px;
+    padding-right: 20px;
 }
